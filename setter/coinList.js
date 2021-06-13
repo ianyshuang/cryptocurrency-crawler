@@ -1,10 +1,11 @@
 const fetch = require('node-fetch')
 const { dynamoClient } = global
+const LIST_URL = 'https://api.coingecko.com/api/v3/coins/list'
 
 // 從 Coingecko 爬取資料並更新 "CoinList" 這個 Table
-const updateCoinList = async (url) => {
+const updateCoinList = async () => {
   // 從 Coingecko 取得當前最新的 coin list
-  const response = await fetch(url)
+  const response = await fetch(LIST_URL)
   const data = await response.json()
   const coinIdList = data.map(coin => coin.id)
   const coinPriceSegment = {}

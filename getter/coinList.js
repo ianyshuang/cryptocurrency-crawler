@@ -8,7 +8,7 @@ const getCoinList = async () => {
     Key: { dateTime: day.getTime() }
   }).promise()
 
-  return data.Item.coins
+  return data.Item
 }
 
 module.exports = {
