@@ -6,8 +6,11 @@ const updateCoinList = async (url) => {
   // 從 Coingecko 取得當前最新的 coin list
   const response = await fetch(url)
   const data = await response.json()
-  const coinIdList = data.map(d => d.id)
-  coinIdList.sort((prev, next) => (prev > next) ? 1 : -1) // sort coin ids alphabetically
+  const coinIdList = data.map(coin => coin.id)
+  const coinPriceSegment = {}
+  coinIdList.forEach((coin, index) => {
+    coinPriceSegment[coin] = Math.ceil((index + 1) / 30)
+  })
   
   // 新增 item 到 "CoinList" 中
   let day = new Date()
@@ -16,7 +19,8 @@ const updateCoinList = async (url) => {
     TableName: 'CoinList',
     Item: {
       dateTime: day.getTime(),  // primary key (datetime on 12 a.m that day)
-      coins: coinIdList
+      coinIdList: coinIdList,
+      coinPriceSegment: coinPriceSegment
     }
   }).promise()
     .then(() => console.log('successfully updated CoinList'))
