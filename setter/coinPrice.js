@@ -8,7 +8,8 @@ const createCoinPriceDay = async () => {
   
   // 取得 coinList 資料
   const coinListItem = await getCoinList()
-  const { coinIdList, coinPriceSegment } = coinListItem
+  const { coinPriceSegment } = coinListItem
+  const coinIdList = Object.keys(coinPriceSegment)
 
   // 計算 12 am / 12 pm 的 timestamp
   const now = new Date()
@@ -55,6 +56,7 @@ const createCoinPriceDay = async () => {
 const updateCoinPriceDay = async () => {
   const { dynamoClient } = global
   const coinListItem = await getCoinList()
+  const coinCounts = Object.keys(coinListItem.coinPriceSegment).length
 
   // 設定時間
   const now = new Date()
@@ -81,7 +83,7 @@ const updateCoinPriceDay = async () => {
   }
 
   // // 每 30 個 coins 為一個 segment
-  const segCounts = Math.ceil(coinListItem.coinIdList.length / SEG_SIZE)
+  const segCounts = Math.ceil(coinCounts / SEG_SIZE)
   for (let i = 1; i <= segCounts; i++) {
     let data = await dynamoClient.get({
       TableName: 'CoinPriceDay',

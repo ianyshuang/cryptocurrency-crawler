@@ -4,7 +4,8 @@ const MARKET_URL = 'https://api.coingecko.com/api/v3/coins/markets'
 
 module.exports = async () => {
   const coinListItem = await getCoinList()
-  const { coinIdList } = coinListItem
+  const { coinPriceSegment } = coinListItem
+  const coinIdList = Object.keys(coinPriceSegment)
 
   const coinPerReq = 400
   const iteration = Math.ceil(coinIdList.length / coinPerReq)
