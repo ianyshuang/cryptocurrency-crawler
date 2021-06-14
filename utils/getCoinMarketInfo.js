@@ -1,4 +1,5 @@
 const fetch = require('node-fetch')
+const { getCoinList } = require('../getter/coinList')
 const MARKET_URL = 'https://api.coingecko.com/api/v3/coins/markets'
 
 module.exports = async () => {
