@@ -17,6 +17,7 @@ global.dynamoClient = dynamoClient
 const { updateCoinList } = require('./setter/coinList')
 const { updateCoinMarket } = require('./setter/coinMarket')
 const { createCoinPriceDay, updateCoinPriceDay } = require('./setter/coinPrice')
+const { createCoinOHLC, updateCoinOHLC24hr, updateCoinOHLC7day, updateCoinOHLC30day } = require('./setter/coinOHLC')
 
 
 const run = async() => {
@@ -26,9 +27,11 @@ const run = async() => {
   // createCoinPriceDay()
   // updateCoinPriceDay()
 
+  // createCoinOHLC()
+  // updateCoinOHLC24hr()
+  // updateCoinOHLC7day()
+  updateCoinOHLC30day()
 }
-
-
 
 run()
 
