@@ -18,7 +18,7 @@ const { getCoinList } = require('./getter/coinList')
 const { updateCoinList } = require('./setter/coinList')
 const { updateCoinMarket } = require('./setter/coinMarket')
 const { createCoinPriceDay, updateCoinPriceDay } = require('./setter/coinPrice')
-const { createCoinOHLC, updateCoinOHLC } = require('./setter/coinOHLC')
+const { createCoinOHLC, updateCoinOHLC24hr, updateCoinOHLC7day, updateCoinOHLC30day } = require('./setter/coinOHLC')
 
 
 const getCoinMarketInfo = async (url) => {
@@ -58,7 +58,9 @@ const run = async() => {
   // updateCoinPriceDay()
 
   // createCoinOHLC()
-  // updateCoinOHLC()
+  // updateCoinOHLC24hr()
+  // updateCoinOHLC7day()
+  updateCoinOHLC30day()
 }
 
 run()
