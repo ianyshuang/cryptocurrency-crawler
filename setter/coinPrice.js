@@ -143,6 +143,7 @@ const updateCoinPrice24hr = async () => {
     let item = data.Item
     let oldCoinPrice = item.coinPrice
     for (let coin in oldCoinPrice) {
+      if (!newCoinPrice[coin]) continue
       let lastEntry = oldCoinPrice[coin][oldCoinPrice[coin].length - 1]
       let newEntry = newCoinPrice[coin]
       if (lastEntry['last_updated'] !== newEntry['last_updated'] && lastEntry['current_price'] !== newEntry['current_price']) {
@@ -203,6 +204,7 @@ const updateCoinPrice7day = async () => {
     let item = data.Item
     let oldCoinPrice = item.coinPrice
     for (let coin in oldCoinPrice) {
+      if (!newCoinPrice[coin]) continue
       let lastEntry = oldCoinPrice[coin][oldCoinPrice[coin].length - 1]
       let newEntry = newCoinPrice[coin]
       if (lastEntry['last_updated'] !== newEntry['last_updated'] && lastEntry['current_price'] !== newEntry['current_price']) {
