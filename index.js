@@ -40,12 +40,16 @@ const run = async() => {
   cron.schedule('*/5 * * * *', createCoinMarket, cronOptions)
 
   // 每 10 分鐘 (3 結尾) 更新
-  cron.schedule('3,13,23,33,43,53 * * * * *', updateCoinPrice24hr, cronOptions)
+  cron.schedule('2,12,22,32,42,52 * * * * *', updateCoinPrice24hr, cronOptions)
 
   // 每小時（XX:08 時）更新
   cron.schedule('8 * * * *', updateCoinPrice7day, cronOptions)
 
-  
+  // 每 30 分鐘（6/36 分時）更新 CoinOHLC 24hr
+  cron.schedule('6,36 * * * *', updateCoinOHLC24hr, cronOptions)
+
+  // 每 4 小時（*/4:01 時）更新 CoinOHLC7day
+  cron.schedule('1 */4 * * *', updateCoinOHLC7day, cronOptions)
 
 }
 
