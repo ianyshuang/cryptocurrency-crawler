@@ -1,7 +1,7 @@
 const getCoinMarketInfo = require('../utils/getCoinMarketInfo')
 
 // 從 Coingecko 爬取資料並更新 "CoinMarket" 這個 Table
-const updateCoinMarket = async () => {
+const createCoinMarket = async () => {
   console.time('fetch coin market')
   const responses = await getCoinMarketInfo()
   console.timeEnd('fetch coin market')
@@ -50,5 +50,5 @@ const updateCoinMarket = async () => {
 }
 
 module.exports = {
-  updateCoinMarket
+  createCoinMarket
 }
