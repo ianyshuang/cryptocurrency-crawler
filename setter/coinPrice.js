@@ -147,7 +147,7 @@ const updateCoinPrice24hr = async () => {
       if (!newEntry) continue // coingecko 沒有提供這個 coin 的 market 資料
 
       if (oldCoinPrice[coin].length === 0) { // 目前沒有這個 coin 的 price
-        oldCoinPrice[coin] = newEntry
+        oldCoinPrice[coin].push(newEntry)
       } else {
         let lastEntry = oldCoinPrice[coin][oldCoinPrice[coin].length - 1]
         if (lastEntry['last_updated'] !== newEntry['last_updated'] && lastEntry['current_price'] !== newEntry['current_price']) {
@@ -213,7 +213,7 @@ const updateCoinPrice7day = async () => {
       if (!newEntry) continue // coingecko 沒有提供這個 coin 的 market 資料
 
       if (oldCoinPrice[coin].length === 0) { // 目前沒有這個 coin 的 price
-        oldCoinPrice[coin] = newEntry
+        oldCoinPrice[coin].push(newEntry)
       } else {
         let lastEntry = oldCoinPrice[coin][oldCoinPrice[coin].length - 1]
         if (lastEntry['last_updated'] !== newEntry['last_updated'] && lastEntry['current_price'] !== newEntry['current_price']) {
