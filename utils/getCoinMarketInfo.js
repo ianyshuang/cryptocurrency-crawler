@@ -18,7 +18,7 @@ module.exports = async () => {
       console.log(`fetching ${start} ~ ${end}`)
       
       // set the range of coins to fetch
-      let queryString = `vs_currency=usd&ids=${idString}&order=market_cap_desc&sparkline=false`
+      let queryString = `vs_currency=usd&ids=${idString}&order=market_cap_desc&sparkline=false&price_change_percentage=1h%2C24h%2C7d`
 
       // fetch data and concat to "coinPriceList"
       let response = fetch(`${MARKET_URL}?${queryString}`)
