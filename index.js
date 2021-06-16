@@ -40,7 +40,7 @@ const run = async() => {
   cron.schedule('*/5 * * * *', createCoinMarket, cronOptions)
 
   // 每 10 分鐘 (3 結尾) 更新
-  cron.schedule('2,12,22,32,42,52 * * * * *', updateCoinPrice24hr, cronOptions)
+  cron.schedule('2,12,22,32,42,52 * * * *', updateCoinPrice24hr, cronOptions)
 
   // 每小時（XX:08 時）更新
   cron.schedule('8 * * * *', updateCoinPrice7day, cronOptions)
