@@ -21,7 +21,7 @@ const run = async() => {
 
   let cronOptions = {
     scheduled: true,
-    timezone: 'Asia/Taipei'
+    timezone: 'UTC'
   }
 
   // 每天 23:17 時更新明天要用的 CoinList
