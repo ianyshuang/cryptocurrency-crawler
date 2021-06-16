@@ -143,11 +143,16 @@ const updateCoinPrice24hr = async () => {
     let item = data.Item
     let oldCoinPrice = item.coinPrice
     for (let coin in oldCoinPrice) {
-      if (!newCoinPrice[coin]) continue
-      let lastEntry = oldCoinPrice[coin][oldCoinPrice[coin].length - 1]
       let newEntry = newCoinPrice[coin]
-      if (lastEntry['last_updated'] !== newEntry['last_updated'] && lastEntry['current_price'] !== newEntry['current_price']) {
-        oldCoinPrice[coin].push(newEntry)
+      if (!newEntry) continue // coingecko 沒有提供這個 coin 的 market 資料
+
+      if (oldCoinPrice[coin].length === 0) { // 目前沒有這個 coin 的 price
+        oldCoinPrice[coin] = newEntry
+      } else {
+        let lastEntry = oldCoinPrice[coin][oldCoinPrice[coin].length - 1]
+        if (lastEntry['last_updated'] !== newEntry['last_updated'] && lastEntry['current_price'] !== newEntry['current_price']) {
+          oldCoinPrice[coin].push(newEntry)
+        }
       }
     }
 
@@ -204,11 +209,16 @@ const updateCoinPrice7day = async () => {
     let item = data.Item
     let oldCoinPrice = item.coinPrice
     for (let coin in oldCoinPrice) {
-      if (!newCoinPrice[coin]) continue
-      let lastEntry = oldCoinPrice[coin][oldCoinPrice[coin].length - 1]
       let newEntry = newCoinPrice[coin]
-      if (lastEntry['last_updated'] !== newEntry['last_updated'] && lastEntry['current_price'] !== newEntry['current_price']) {
-        oldCoinPrice[coin].push(newEntry)
+      if (!newEntry) continue // coingecko 沒有提供這個 coin 的 market 資料
+
+      if (oldCoinPrice[coin].length === 0) { // 目前沒有這個 coin 的 price
+        oldCoinPrice[coin] = newEntry
+      } else {
+        let lastEntry = oldCoinPrice[coin][oldCoinPrice[coin].length - 1]
+        if (lastEntry['last_updated'] !== newEntry['last_updated'] && lastEntry['current_price'] !== newEntry['current_price']) {
+          oldCoinPrice[coin].push(newEntry)
+        }
       }
     }
 
