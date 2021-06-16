@@ -2,9 +2,10 @@ const getCoinMarketInfo = require('../utils/getCoinMarketInfo')
 
 // 從 Coingecko 爬取資料並更新 "CoinMarket" 這個 Table
 const createCoinMarket = async () => {
-  console.time('fetch coin market')
+  console.log('createCoinMarket')
+
   const responses = await getCoinMarketInfo()
-  console.timeEnd('fetch coin market')
+  console.log('finish fetching from coingecko')
 
   let coinMarketList = []
   for (let res of responses) {
@@ -14,9 +15,8 @@ const createCoinMarket = async () => {
 
 
   // sort data with "market_cap" field in descending order
-  console.time('sorting')
   coinMarketList.sort((prev, next) => next.market_cap - prev.market_cap)
-  console.timeEnd('sorting')
+  console.log('finish sorting by market_cap')
 
   // 更新 "CoinMarket" (by page)
   const now = new Date()

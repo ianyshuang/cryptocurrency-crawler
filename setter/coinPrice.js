@@ -102,6 +102,8 @@ const createCoinPrice7day = async () => {
 // 從 Coingecko 爬取資料並更新 "CoinPrice24hr" 這個 table
 // 更新頻率為 5 分鐘
 const updateCoinPrice24hr = async () => {
+  console.log('updateCoinPrice24hr')
+
   const { dynamoClient } = global
   const coinListItem = await getCoinList()
   const coinCounts = Object.keys(coinListItem.coinPriceSegment).length
@@ -116,9 +118,9 @@ const updateCoinPrice24hr = async () => {
   const time = nowTime >= dateMidTime ? dateMidTime : dateStartTime
   
   // 從 coingecko 爬資料
-  console.time('fetch coin market')
   const responses = await getCoinMarketInfo()
-  console.timeEnd('fetch coin market')
+  console.log('finish fetching from coingecko')
+
   const newCoinPrice = {}
   for (let res of responses) {
     let data = await res.json()
@@ -161,6 +163,8 @@ const updateCoinPrice24hr = async () => {
 // 從 Coingecko 爬取資料並更新 "CoinPrice7day" 這個 table
 // 更新頻率為 1 小時
 const updateCoinPrice7day = async () => {
+  console.log('updateCoinPrice7day')
+
   const { dynamoClient } = global
   const coinListItem = await getCoinList()
   const coinCounts = Object.keys(coinListItem.coinPriceSegment).length
@@ -170,9 +174,9 @@ const updateCoinPrice7day = async () => {
   const time = now.getTime()
 
   // 從 coingecko 爬取資料
-  console.time('fetch coin market')
   const responses = await getCoinMarketInfo()
-  console.timeEnd('fetch coin market')
+  console.log('finish fetching from coingecko')
+  
   const newCoinPrice = {}
   for (let res of responses) {
     let data = await res.json()
