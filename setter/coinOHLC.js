@@ -1,5 +1,5 @@
 const { getCoinList } = require('../getter/coinList')
-const { getCoinPriceDay } = require('../getter/coinPriceDay')
+const { getCoinPrice24hr } = require('../getter/coinPrice24hr')
 const { getCoinOHLC24hr, getCoinOHLC7day, getCoinOHLC30day } = require('../getter/coinOHLC')
 const SEG_SIZE = 30
 const THIRTY_MIN = 30 * 60 * 1000
@@ -63,8 +63,8 @@ const updateCoinOHLC24hr = async () => {
   const startTime = endTime - THIRTY_MIN
 
   for (let i = 1; i <= segCounts; i++) {
-    const coinPriceDayItem = await getCoinPriceDay(i)
-    const { coinPrice } = coinPriceDayItem
+    const coinPrice24hrItem = await getCoinPrice24hr(i)
+    const { coinPrice } = coinPrice24hrItem
 
     const coinOHLC = await getCoinOHLC24hr(i)
     let ohlc = {}
