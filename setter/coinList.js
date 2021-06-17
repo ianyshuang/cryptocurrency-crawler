@@ -11,16 +11,30 @@ const createCoinList = async () => {
   coinList.forEach((coin, index) => {
     coinPriceSegment[coin.id] = Math.ceil((index + 1) / 30)
   })
+
+  // 取得今天的 CoinList
+  let now = new Date()
+  now.setHours(0, 0, 0, 0)
+  let response = await dynamoClient.get({
+    TableName: 'CoinList',
+    Key: { dateTime: now.getTime() }
+  }).promise()
+
+  // 如果新抓下來的 coin 沒有在原本的 CoinList 才更動 segment
+  let segment = response.Item.coinPriceSegment
+  for (let coin in segment) {
+    if (!segment[coin]) {
+      segment[coin] = coinPriceSegment[coin]
+    }
+  }
   
   // 新增隔天使用的 CoinList Item 到 table 中
-  let day = new Date()
-  day.setHours(0, 0, 0, 0)
-  day.setDate(day.getDate() + 1)
+  now.setDate(now.getDate() + 1)
   await dynamoClient.put({
     TableName: 'CoinList',
     Item: {
-      dateTime: day.getTime(),  // primary key (datetime on 12 a.m that day)
-      coinPriceSegment: coinPriceSegment
+      dateTime: now.getTime(),  // primary key (datetime on 12 a.m that day)
+      coinPriceSegment: segment
     }
   }).promise()
     .then(() => console.log('successfully updated CoinList'))
