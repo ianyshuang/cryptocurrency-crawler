@@ -15,13 +15,13 @@ const createCoinList = async () => {
   // 取得今天的 CoinList
   let now = new Date()
   now.setHours(0, 0, 0, 0)
-  let response = await dynamoClient.get({
+  let data = await dynamoClient.get({
     TableName: 'CoinList',
     Key: { dateTime: now.getTime() }
   }).promise()
 
   // 如果新抓下來的 coin 沒有在原本的 CoinList 才更動 segment
-  let segment = response.Item.coinPriceSegment
+  let segment = data.Item.coinPriceSegment
   for (let coin in segment) {
     if (!segment[coin]) {
       segment[coin] = coinPriceSegment[coin]
